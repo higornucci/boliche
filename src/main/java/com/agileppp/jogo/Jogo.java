@@ -8,8 +8,6 @@ public class Jogo {
     private int quadroAtual = 1;
     private boolean primeiraJogada = true;
     private int bola;
-    private int primeiroArremesso;
-    private int segundoArremesso;
 
     public void adicionar(int pinosDaJogada) {
         this.arremessos[jogadaAtual++] = pinosDaJogada;
@@ -40,28 +38,42 @@ public class Jogo {
         bola = 0;
         int pontuacao = 0;
         for(int quadroAtual = 0; quadroAtual < quadro; quadroAtual++) {
-            primeiroArremesso = arremessos[bola++];
-            if(primeiroArremesso == STRIKE) {
-                pontuacao += 10 + arremessos[bola] + arremessos[bola+1];
+            if(isStrike()) {
+                pontuacao += 10 + pegarProximasDuasBolasParaStrike();
+                bola++;
+            } else if(isSpare()) {
+                pontuacao += 10 + pegarProximoArremessoParaSpare();
+                bola += 2;
             } else {
-                pontuacao += calcularSegundoArremesso();
+                pontuacao += pegarProximasDuasBolas();
+                bola += 2;
             }
         }
         return pontuacao;
     }
 
-    private int calcularSegundoArremesso() {
-        int pontuacao = 0;
-        segundoArremesso = arremessos[bola++];
+    private int pegarProximoArremessoParaSpare() {
+        return arremessos[bola + 2];
+    }
 
-        int pontuacaoDoQuadro = primeiroArremesso + segundoArremesso;
+    private int pegarProximasDuasBolasParaStrike() {
+        return arremessos[bola + 1] + arremessos[bola + 2];
+    }
 
-        if (pontuacaoDoQuadro == 10) {
-            pontuacao += pontuacaoDoQuadro + arremessos[bola];
-        } else {
-            pontuacao += pontuacaoDoQuadro;
-        }
-        return pontuacao;
+    private int pegarProximasDuasBolas() {
+        return pegarProximoArremesso() + arremessos[bola + 1];
+    }
+
+    private boolean isStrike() {
+        return arremessos[bola] == STRIKE;
+    }
+
+    private int pegarProximoArremesso() {
+        return arremessos[bola];
+    }
+
+    private boolean isSpare() {
+        return pegarProximoArremesso() + arremessos[bola + 1] == 10;
     }
 
     public int getQuadroAtual() {
