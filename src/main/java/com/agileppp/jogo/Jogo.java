@@ -7,6 +7,9 @@ public class Jogo {
     private int jogadaAtual;
     private int quadroAtual = 1;
     private boolean primeiraJogada = true;
+    private int bola;
+    private int primeiroArremesso;
+    private int segundoArremesso;
 
     public void adicionar(int pinosDaJogada) {
         this.arremessos[jogadaAtual++] = pinosDaJogada;
@@ -34,23 +37,29 @@ public class Jogo {
     }
 
     public int getPontuacaoDoQuadro(int quadro) {
+        bola = 0;
         int pontuacao = 0;
-        int bola = 0;
         for(int quadroAtual = 0; quadroAtual < quadro; quadroAtual++) {
-            int primeiroArremesso = arremessos[bola++];
+            primeiroArremesso = arremessos[bola++];
             if(primeiroArremesso == STRIKE) {
                 pontuacao += 10 + arremessos[bola] + arremessos[bola+1];
             } else {
-                int segundoArremesso = arremessos[bola++];
-
-                int pontuacaoDoQuadro = primeiroArremesso + segundoArremesso;
-
-                if (pontuacaoDoQuadro == 10) {
-                    pontuacao += pontuacaoDoQuadro + arremessos[bola];
-                } else {
-                    pontuacao += pontuacaoDoQuadro;
-                }
+                pontuacao += calcularSegundoArremesso();
             }
+        }
+        return pontuacao;
+    }
+
+    private int calcularSegundoArremesso() {
+        int pontuacao = 0;
+        segundoArremesso = arremessos[bola++];
+
+        int pontuacaoDoQuadro = primeiroArremesso + segundoArremesso;
+
+        if (pontuacaoDoQuadro == 10) {
+            pontuacao += pontuacaoDoQuadro + arremessos[bola];
+        } else {
+            pontuacao += pontuacaoDoQuadro;
         }
         return pontuacao;
     }
