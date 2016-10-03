@@ -30,11 +30,13 @@ public class JogoTeste {
     @Test
     public void deve_calcular_pontuacao_de_duas_jogadas_sem_spare() {
         int pontuacaoEsperada = 9;
+        int quadroAtualEsperado = 2;
 
         jogo.adicionar(CINCO_PINOS);
         jogo.adicionar(QUATRO_PINOS);
 
         assertThat(jogo.getPontuacao(), is(equalTo(pontuacaoEsperada)));
+        assertThat(jogo.getQuadroAtual(), is(equalTo(quadroAtualEsperado)));
     }
 
     @Test
@@ -42,6 +44,7 @@ public class JogoTeste {
         int pontuacaoEsperadaJogo = 18;
         int pontuacaoEsperadaQuadro1 = 9;
         int pontuacaoEsperadaQuadro2 = 18;
+        int quadroAtualEsperado = 3;
 
         jogo.adicionar(CINCO_PINOS);
         jogo.adicionar(QUATRO_PINOS);
@@ -51,17 +54,20 @@ public class JogoTeste {
         assertThat(jogo.getPontuacao(), is(equalTo(pontuacaoEsperadaJogo)));
         assertThat(jogo.getPontuacaoDoQuadro(1), is(equalTo(pontuacaoEsperadaQuadro1)));
         assertThat(jogo.getPontuacaoDoQuadro(2), is(equalTo(pontuacaoEsperadaQuadro2)));
+        assertThat(jogo.getQuadroAtual(), is(equalTo(quadroAtualEsperado)));
     }
 
     @Test
     public void deve_calcular_pontuacao_de_um_spare_simples() {
         int pontuacaoEsperadaQuadro1 = 13;
+        int quadroAtualEsperado = 2;
 
         jogo.adicionar(TRES_PINOS);
         jogo.adicionar(SETE_PINOS);
         jogo.adicionar(TRES_PINOS);
 
         assertThat(jogo.getPontuacaoDoQuadro(1), is(equalTo(pontuacaoEsperadaQuadro1)));
+        assertThat(jogo.getQuadroAtual(), is(equalTo(quadroAtualEsperado)));
     }
 
     @Test
@@ -69,6 +75,7 @@ public class JogoTeste {
         int pontuacaoEsperadaQuadro1 = 13;
         int pontuacaoEsperadaQuadro2 = 18;
         int pontuacaoEsperada = 18;
+        int quadroAtualEsperado = 3;
 
         jogo.adicionar(TRES_PINOS);
         jogo.adicionar(SETE_PINOS);
@@ -77,6 +84,7 @@ public class JogoTeste {
 
         assertThat(jogo.getPontuacaoDoQuadro(1), is(equalTo(pontuacaoEsperadaQuadro1)));
         assertThat(jogo.getPontuacaoDoQuadro(2), is(equalTo(pontuacaoEsperadaQuadro2)));
+        assertThat(jogo.getQuadroAtual(), is(equalTo(quadroAtualEsperado)));
         assertThat(jogo.getPontuacao(), is(equalTo(pontuacaoEsperada)));
     }
 
@@ -84,6 +92,7 @@ public class JogoTeste {
     public void deve_calcular_pontuacao_de_um_strike() throws Exception {
         int pontuacaoEsperadaQuadro1 = 19;
         int pontuacaoEsperada = 28;
+        int quadroAtualEsperado = 3;
 
         jogo.adicionar(DEZ_PINOS);
         jogo.adicionar(TRES_PINOS);
@@ -91,16 +100,19 @@ public class JogoTeste {
 
         assertThat(jogo.getPontuacaoDoQuadro(1), is(equalTo(pontuacaoEsperadaQuadro1)));
         assertThat(jogo.getPontuacao(), is(equalTo(pontuacaoEsperada)));
+        assertThat(jogo.getQuadroAtual(), is(equalTo(quadroAtualEsperado)));
     }
 
     @Test
     public void deve_calcular_pontuacao_de_um_jogo_perfeito() throws Exception {
         int pontuacaoEsperada = 300;
+        int quadroAtualEsperado = 11;
 
         for(int i = 0; i < 12; i++)
             jogo.adicionar(DEZ_PINOS);
 
         assertThat(jogo.getPontuacao(), is(equalTo(pontuacaoEsperada)));
+        assertThat(jogo.getQuadroAtual(), is(equalTo(quadroAtualEsperado)));
     }
 
     @Test
