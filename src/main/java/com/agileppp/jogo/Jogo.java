@@ -10,11 +10,11 @@ public class Jogo {
     private boolean primeiraJogada = true;
     private Pontuador pontuador = new Pontuador();
 
-    public int getPontuacao() {
+    int getPontuacao() {
         return getPontuacaoDoQuadro(quadroAtual);
     }
 
-    public void adicionar(int pinosDaJogada) {
+    void adicionar(int pinosDaJogada) {
         pontuador.adicionarJogada(pinosDaJogada);
         ajustarQuadroAtual(pinosDaJogada);
     }
@@ -51,7 +51,7 @@ public class Jogo {
         }
     }
 
-    public int getPontuacaoDoQuadro(int quadro) {
+    int getPontuacaoDoQuadro(int quadro) {
        return pontuador.getPontuacaoDoQuadro(quadro);
     }
 }
